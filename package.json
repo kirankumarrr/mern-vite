@@ -8,10 +8,10 @@
     "migrate:down": "migrate-mongo down",
     "start": "node server.js",
     "server": "nodemon --inspect server",
-    "client-install": "npm config set legacy-peer-deps true  --prefix client &&  npm install --prefix client",
-    "client": "npm config set legacy-peer-deps true  --prefix client && npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "npm install --prefix client && npm run build --prefix client"
+    "client-install": "cd client &&  yarn install",
+    "client": "cd client &&  yarn dev",
+    "dev": "concurrently \"npm run server\" \"yarn dev client\"",
+    "build": "npm install --ignore-engines && cd client && yarn install &&  yarn build"
   },
   "dependencies": {
     "@date-io/date-fns": "^2.11.0",
@@ -20,6 +20,7 @@
     "body-parser": "^1.19.0",
     "colors": "^1.4.0",
     "concurrently": "^6.2.0",
+    "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "express-pdf": "^1.2.2",
     "gravatar": "^1.8.1",
