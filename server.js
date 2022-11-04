@@ -49,7 +49,8 @@ mongoose
     useUnifiedTopology: true,
   })
   .then((res) => {
-    console.log('Connected to Mongo̥DB');
+    console.log('Connected to MongoDB');
+
   })
   .catch((err) => {
     console.error(err);
@@ -85,15 +86,11 @@ app.use(errorHandler);
 
 //LOAD UI CODE IN HERE BRANCH
 // Server static assests if in production
-if (process.env.NODE_ENV === 'production') {
-  //SET Static folder
-  app.use(express.static('client/build'));
+app.use(express.static('client/dist'));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
-
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+});
 const port = process.env.PORT || 5000;
 
 const server = app.listen(
