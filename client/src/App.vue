@@ -45,8 +45,8 @@ const updateCard = async (updatedPayload) => {
 
 <template>
   <div class="bg-gray-800 h-screen text-white">
-    <header class="py-16">
-      <h1 class="text-5xl font-bold text-center mb-6">Fly High</h1>
+    <header>
+      <h1 class="text-lg font-bold text-left py-2">Fly High</h1>
     </header>
     <Cards :data="state.cardsData" :update="updateCard" />
   </div>

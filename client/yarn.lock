@@ -1038,14 +1038,7 @@ vue-final-modal@3:
   resolved "https://registry.yarnpkg.com/vue-final-modal/-/vue-final-modal-3.4.11.tgz#5a7cb31fad5bff0f51e4db167ae9309f404f20a1"
   integrity sha512-tKBM4hcUo16rUGa/UaYMlut11cRfxMZnahz9u+mAoSk8mQNdnm9FHzOeHIcUxNHvMC/YyVBlOHi+2GqOVO8zig==
 
-vue3-easy-data-table@^1.5.22:
-  version "1.5.22"
-  resolved "https://registry.yarnpkg.com/vue3-easy-data-table/-/vue3-easy-data-table-1.5.22.tgz#54e48ddfe169579774e76991c320ec70ac7aa50c"
-  integrity sha512-hMddzAvjqH/uMH4425TJkC/r6h06AFnbjzeW2DEk+axA5s4IGblQ5NL+MZEVcIHONFLkopXNQpFUYKEudjjGFA==
-  dependencies:
-    vue "^3.2.45"
-
-vue@^3.2.41, vue@^3.2.45:
+vue@^3.2.41:
   version "3.2.45"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.45.tgz#94a116784447eb7dbd892167784619fef379b3c8"
   integrity sha512-9Nx/Mg2b2xWlXykmCwiTUCWHbWIj53bnkizBxKai1g61f2Xit700A1ljowpTIM11e3uipOeiPcSqnmBg6gyiaA==
