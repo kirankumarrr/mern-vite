@@ -5,12 +5,28 @@ import { onMounted } from "vue";
 import { reactive } from "vue";
 import CardsApi from "./api/cards";
 import Cards from "./components/Cards.vue";
+import moment from "moment";
 const state = reactive({ cardsData: [] });
+
+const formatData = (inputRecods) => {
+  const data = inputRecods.reduce((acc, item) => {
+    const updatedAt = moment(item.updatedAt).format("DD-MMM-YYYY hh:mm A");
+    const date = moment(item.date).format("DD-MMM-YYYY hh:mm A");
+    const newR = {
+      ...item,
+      updatedAt,
+      date,
+    };
+    acc.push(newR);
+    return acc;
+  }, []);
+  return data;
+};
 
 onMounted(async () => {
   try {
     const getCards = await CardsApi.getCards();
-    state.cardsData = getCards.data.data;
+    state.cardsData = formatData(getCards.data.data);
   } catch (error) {
     console.log("Get Cards FAILED", error);
   }
@@ -20,7 +36,7 @@ const updateCard = async (updatedPayload) => {
   try {
     await CardsApi.updateCards(updatedPayload);
     const getCards = await CardsApi.getCards();
-    state.cardsData = getCards.data.data;
+    state.cardsData = formatData(getCards.data.data);
   } catch (error) {
     console.log("FAILED TO UPDATE", error);
   }
@@ -32,7 +48,6 @@ const updateCard = async (updatedPayload) => {
     <header class="py-16">
       <h1 class="text-5xl font-bold text-center mb-6">Fly High</h1>
     </header>
-
     <Cards :data="state.cardsData" :update="updateCard" />
   </div>
 </template>

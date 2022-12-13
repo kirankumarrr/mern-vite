@@ -1,9 +1,6 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-// import CardsApi from "./api/cards";
-import { reactive } from "vue";
-import { onMounted } from "vue";
+import { reactive, ref } from "vue";
+import moment from "moment";
 
 // const props = defineProps(["data", "update"]);
 const props = defineProps({
@@ -11,7 +8,14 @@ const props = defineProps({
   update: Function,
 });
 
-const state = reactive({ isModalOpen: false, activeItem: null });
+const state = reactive({
+  isModalOpen: false,
+  activeItem: null,
+});
+const timestamp = ref(null);
+const avaiableAmount = ref(0);
+const amountToBePaid = ref(0);
+// state.activeItem?.date ? new Date(state.activeItem.date) :
 
 const headers = [
   { text: "Operation", value: "operation" },
@@ -44,7 +48,16 @@ const headers = [
 ];
 
 const handleConfirm = async () => {
-  props.update(state.activeItem);
+  const getDate = moment(timestamp.value);
+  const amount = amountToBePaid.value;
+  const avaiable = avaiableAmount.value;
+  const formData = {
+    ...state.activeItem,
+    amount,
+    avaiable,
+    date: getDate,
+  };
+  props.update(formData);
   state.isModalOpen = false;
   //   try {
   //     const response = await CardsApi.updateCards(state.activeItem);
@@ -60,6 +73,10 @@ const handleConfirm = async () => {
 const editItem = (val) => {
   state.isModalOpen = true;
   state.activeItem = Object.assign(val);
+  let currentTime = new Date(val.date).getTime();
+  timestamp.value = currentTime;
+  amountToBePaid.value = val.amount;
+  avaiableAmount.value = val.avaiable;
 };
 
 // const handleDateChange = (event) => {
@@ -103,62 +120,57 @@ const handelModal = () => {
         class="modal__content"
         v-if="state.activeItem && Object.keys(state.activeItem).length > 0"
       >
-        <!-- <fw-input
-          label="Available Amount"
-          icon-left="bulb"
-          hint-text="You need to enter current credit  balance"
-          placeholder="Enter Available Amount"
-          required
-          type="number"
-          min="0"
-          @fwBlur="(event) => handleChange(event, 'avaiable')"
-          :value="state.activeItem.avaiable"
-          clear-input
-        >
-        </fw-input>
-        <fw-input
-          label="Amount to Paid to Credit Card"
-          icon-left="priority"
-          hint-text="You need to enter generated bill amount"
-          placeholder="Enter Amount to be Paid"
-          required
-          type="number"
-          min="0"
-          @fwInput="(event) => (state.activeItem.amount = event.target.value)"
-          :value="state.activeItem.amount"
-          clear-input
-        >
-        </fw-input>
-        <fw-label value="Available Amount" color="yellow"></fw-label><br /> -->
-        <!-- <fw-datepicker
-          id="date1"
-          @fwChange="handleDateChange"
-          :value="getDateFormat(state.activeItem.date)"
-        ></fw-datepicker> -->
         <div>
-          <fw-label value="Bill Due Date" color="yellow"></fw-label><br />
-          <input
+          <!-- <fw-label value="Bill Due Date" color="yellow"></fw-label><br /> -->
+          <!-- <input
             type="number"
-            v-if="state.activeItem && Object.keys(state.activeItem).length > 0"
-            :value="state.activeItem.avaiable"
             placeholder="Enter Available Amount"
             @input="(event) => (state.activeItem.avaiable = event.target.value)"
-          />
+          /> -->
+          <n-form-item path="avaiableAmount" label="Available Amount">
+            <n-input-number
+              v-if="
+                state.activeItem && Object.keys(state.activeItem).length > 0
+              "
+              clearable
+              v-model:value="avaiableAmount"
+              placeholder="Basic Input"
+            />
+          </n-form-item>
         </div>
-        <br />
         <div>
-          <fw-label
-            value="Amount to Paid to Credit Card"
-            color="yellow"
-          ></fw-label
-          ><br />
-          <input
+          <!-- <input
             type="number"
             v-if="state.activeItem && Object.keys(state.activeItem).length > 0"
             :value="state.activeItem.amount"
             placeholder="Enter Generated Amount"
             @input="(event) => (state.activeItem.amount = event.target.value)"
-          />
+          /> -->
+          <n-form-item
+            path="amountToBePaid"
+            label="Amount to Paid to Credit Card"
+          >
+            <n-input-number
+              clearable
+              v-if="
+                state.activeItem && Object.keys(state.activeItem).length > 0
+              "
+              v-model:value="amountToBePaid"
+              placeholder="Enter Generated Amount"
+            />
+          </n-form-item>
+        </div>
+        <div>
+          <n-form-item path="timestamp" label="Due Date">
+            <n-date-picker v-model:value="timestamp" type="date" default-value
+          /></n-form-item>
+
+          <!-- <n-date-picker
+            :value="new Date(state.activeItem.date).getTime()"
+            type="date"
+          /> -->
+
+          <!-- <van-date-picker v-model="currentDate" title="Choose Date" /> -->
         </div>
       </div>
       <div class="modal__action flex gap-3">
