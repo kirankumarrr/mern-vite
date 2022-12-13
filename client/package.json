@@ -14,7 +14,8 @@
     "moment": "^2.29.4",
     "vue": "^3.2.41",
     "vue-final-modal": "3",
-    "vue3-easy-data-table": "^1.5.22"
+    "vue3-easy-data-table": "^1.5.22",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.2.0",

@@ -8,10 +8,13 @@ import {
   applyPolyfills,
   defineCustomElements,
 } from "@freshworks/crayons/loader";
+import store from "./store";
 
 applyPolyfills().then(() => defineCustomElements());
 
 const app = createApp(App);
+app.config.ignoredElements = [/fw-\w*/];
 app.use(vfmPlugin);
+app.use(store);
 app.component("EasyDataTable", Vue3EasyDataTable);
 app.mount("#app");

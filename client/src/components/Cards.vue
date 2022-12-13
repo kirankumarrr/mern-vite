@@ -3,7 +3,6 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 // import CardsApi from "./api/cards";
 import { reactive } from "vue";
-import { onMounted } from "vue";
 
 // const props = defineProps(["data", "update"]);
 const props = defineProps({
@@ -67,9 +66,10 @@ const editItem = (val) => {
 // };
 
 const handleChange = (event, field) => {
+  console.log("event, field", { event, field });
   //   console.log("handleChange", event, field);
   state.activeItem.avaiable = event.target.value;
-  //   console.log("state.activeItem", state.activeItem);
+  //   console.log("state.activeItem", state.act iveItem);
 };
 
 const handelModal = () => {
@@ -103,7 +103,8 @@ const handelModal = () => {
         class="modal__content"
         v-if="state.activeItem && Object.keys(state.activeItem).length > 0"
       >
-        <!-- <fw-input
+        <fw-input
+          name="avaiable"
           label="Available Amount"
           icon-left="bulb"
           hint-text="You need to enter current credit  balance"
@@ -111,12 +112,12 @@ const handelModal = () => {
           required
           type="number"
           min="0"
-          @fwBlur="(event) => handleChange(event, 'avaiable')"
+          @fwBlur="handleChange"
           :value="state.activeItem.avaiable"
-          clear-input
         >
         </fw-input>
         <fw-input
+          name="amount"
           label="Amount to Paid to Credit Card"
           icon-left="priority"
           hint-text="You need to enter generated bill amount"
@@ -124,18 +125,19 @@ const handelModal = () => {
           required
           type="number"
           min="0"
-          @fwInput="(event) => (state.activeItem.amount = event.target.value)"
+          @fwBlur="handleChange"
           :value="state.activeItem.amount"
           clear-input
         >
+          <!-- @fwInput="(event) => (state.activeItem.amount = event.target.value)" -->
         </fw-input>
-        <fw-label value="Available Amount" color="yellow"></fw-label><br /> -->
+        <fw-label value="Available Amount" color="yellow"></fw-label><br />
         <!-- <fw-datepicker
           id="date1"
           @fwChange="handleDateChange"
           :value="getDateFormat(state.activeItem.date)"
         ></fw-datepicker> -->
-        <div>
+        <!-- <div>
           <fw-label value="Bill Due Date" color="yellow"></fw-label><br />
           <input
             type="number"
@@ -159,7 +161,7 @@ const handelModal = () => {
             placeholder="Enter Generated Amount"
             @input="(event) => (state.activeItem.amount = event.target.value)"
           />
-        </div>
+        </div> -->
       </div>
       <div class="modal__action flex gap-3">
         <v-button @click="handleConfirm" class="cursor-pointer"
