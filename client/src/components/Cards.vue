@@ -66,6 +66,7 @@ const createColumns = ({ editItem }) => {
           NTag,
           {
             style: {
+              width: "100px",
               backgroundColor:
                 row.amount !== 0
                   ? getDateColors(row.date, row.amount)
@@ -255,9 +256,13 @@ v-button {
 }
 </style>
 
-<style scoped>
+<style>
 .dark-mode div::v-deep .modal-content {
   border-color: #2d3748;
   background-color: #1a202c;
+}
+
+.n-data-table .n-data-table-th .n-data-table-th__title-wrapper {
+  width: 150px;
 }
 </style>
