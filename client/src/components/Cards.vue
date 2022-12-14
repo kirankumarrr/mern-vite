@@ -55,6 +55,10 @@ const createColumns = ({ editItem }) => {
       },
     },
     {
+      title: "Name",
+      key: "name",
+    },
+    {
       title: "Amount to be paid",
       key: "amount",
     },
