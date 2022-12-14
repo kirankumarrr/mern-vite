@@ -18,20 +18,8 @@ const amountToBePaid = ref(0);
 const createColumns = ({ editItem }) => {
   return [
     {
-      title: "Action",
-      key: "actions",
-      render(row) {
-        return h(
-          NButton,
-          {
-            strong: true,
-            tertiary: true,
-            size: "small",
-            onClick: () => editItem(row),
-          },
-          { default: () => " ✏️ Edit " }
-        );
-      },
+      title: "Name",
+      key: "name",
     },
     {
       title: "Available",
@@ -55,10 +43,6 @@ const createColumns = ({ editItem }) => {
       },
     },
     {
-      title: "Name",
-      key: "name",
-    },
-    {
       title: "Amount to be paid",
       key: "amount",
     },
@@ -80,6 +64,22 @@ const createColumns = ({ editItem }) => {
           {
             default: () => row.date,
           }
+        );
+      },
+    },
+    {
+      title: "Action",
+      key: "actions",
+      render(row) {
+        return h(
+          NButton,
+          {
+            strong: true,
+            tertiary: true,
+            size: "small",
+            onClick: () => editItem(row),
+          },
+          { default: () => " ✏️ Edit " }
         );
       },
     },
